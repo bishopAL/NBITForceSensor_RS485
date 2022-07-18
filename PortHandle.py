@@ -21,12 +21,13 @@ class PortHandle(object):
         hex_str=hex_bytes.decode("ascii")
         listIndex = 0
         if(len(hex_str)==46):
-            index=6  # 数据起始位置
-            while(index<42):  # 每6位为一个数据，第一位为符号位，转换为十进制输出，共36位数据（6*6）
-                num=(hex_str[index+1:index+6])
-                if(hex_str[index]=='8'):
-                    self.force[listIndex] = -int(num,16)
+            index=6  # ignoring the 3 starting pos
+            while(index<42):  # 6 hex consist an int data, among them the fisrt hex is also about the positive or negetive
+                if(hex_str[index]>='8'):
+                    num=(hex_str[index:index+6])
+                    self.force[listIndex] = -int(num,16)+2**23
                 else:
+                    num=(hex_str[index:index+6])
                     self.force[listIndex] = int(num,16)
                 index += 6
                 listIndex += 1
