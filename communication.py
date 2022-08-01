@@ -1,6 +1,6 @@
 from PortHandle import PortHandle
 import time
-import pandas as pd
+# import pandas as pd
 import datetime
 
 recordData = pd.DataFrame(columns=['T', 'F_x', 'F_y', 'F_z', 'T_x', 'T_y', 'T_z'])
@@ -10,7 +10,7 @@ time.sleep(0.05)
 startTime = time.time()
 presentTime = 0
 iteration = 0
-while(presentTime<=60):
+for i in range(50):
     ph.getForce()
     presentTime = time.time() - startTime
     recordData.loc[iteration] = [presentTime] + ph.force
